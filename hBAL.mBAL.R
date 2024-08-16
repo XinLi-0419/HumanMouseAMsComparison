@@ -374,7 +374,7 @@ Figure.2A.FeaturePlot.Subtypes <- c(rep("IFN.AMs", 2), rep("MT.AMs", 2), rep("CK
 for (i in 1:length(Figure.2A.FeaturePlot.Features)) {
   umap <- hAMs@reductions$umap@cell.embeddings[hAMs$AMs.Cell.Subtypes %in% Figure.2A.FeaturePlot.Subtypes[i], ]
   Figure.2.FeaturePlot <- FeaturePlot(hAMs, features = Figure.2A.FeaturePlot.Features[i], raster = FALSE, order = TRUE, pt.size = 0.5) + scale_colour_gradient(low = "#E5E5E5", high = "#990F0F") + 
-    geom_density_2d(data = data.frame(umap), aes(x = umap_1, y = umap_2), bins = 15, linewidth = 2.5, alpha = 2, colour = "gray20") + theme_void() + theme(plot.title = element_blank(), legend.position = "none") + # bins = ifelse(i == 2, ifelse(i == 5, 25, 8), 15) to make Mono tight, DCs bigger
+    geom_density_2d(data = data.frame(umap), aes(x = umap_1, y = umap_2), bins = 15, linewidth = 2.5, alpha = 2, colour = "gray20") + theme_void() + theme(plot.title = element_blank(), legend.position = "none") + 
     xlim(range.expand(hAMs@reductions$umap@cell.embeddings[, "umap_1"], expand.ratio = 0.05)) + ylim(range.expand(hAMs@reductions$umap@cell.embeddings[, "umap_2"], expand.ratio = 0.05)) + coord_cartesian(expand = FALSE)
   Figure.2.FeaturePlot <- ggplot_build(Figure.2.FeaturePlot)
   # highlight specific cell types
@@ -384,7 +384,7 @@ for (i in 1:length(Figure.2A.FeaturePlot.Features)) {
   Contour <- if(Figure.2A.FeaturePlot.Subtypes[i] == "CXCL5.AMs") c(6, 19, 14) else 
     if(Figure.2A.FeaturePlot.Subtypes[i] == "CCL18.AMs") c(1, 2) else 
       if(Figure.2A.FeaturePlot.Subtypes[i] == "GF.AMs") c(4) else c(which.max(table(Figure.2.FeaturePlot$data[[2]]$piece)))
-  Figure.2.FeaturePlot$data[[2]] <- Figure.2.FeaturePlot$data[[2]][Figure.2.FeaturePlot$data[[2]]$piece == Contour, ] # to make Neu tight
+  Figure.2.FeaturePlot$data[[2]] <- Figure.2.FeaturePlot$data[[2]][Figure.2.FeaturePlot$data[[2]]$piece == Contour, ] 
   Figure.2.FeaturePlot.directory <- paste0("Figure.2A.hAMs.", Figure.2A.FeaturePlot.Features[i], ".FeaturePlot.png")
   png(Figure.2.FeaturePlot.directory, width = 1100/2, height = 1000/2)
   print(grid::grid.draw(ggplot_gtable(Figure.2.FeaturePlot)))
@@ -396,7 +396,7 @@ Figure.2A.FeaturePlot.Subtypes <- c(rep("IFN.AMs", 2), rep("Mt.AMs", 2), rep("CK
 for (i in 1:length(Figure.2A.FeaturePlot.Features)) {
   umap <- mAMs@reductions$umap@cell.embeddings[mAMs$AMs.Cell.Subtypes %in% Figure.2A.FeaturePlot.Subtypes[i], ]
   Figure.2.FeaturePlot <- FeaturePlot(mAMs, features = Figure.2A.FeaturePlot.Features[i], raster = FALSE, order = TRUE, pt.size = 0.5) + scale_colour_gradient(low = "#E5E5E5", high = "#990F0F") + 
-    geom_density_2d(data = data.frame(umap), aes(x = umap_1, y = umap_2), bins = 15, linewidth = 2.5, alpha = 2, colour = "gray20") + theme_void() + theme(plot.title = element_blank(), legend.position = "none") + # bins = ifelse(i == 2, ifelse(i == 5, 25, 8), 15) to make Mono tight, DCs bigger
+    geom_density_2d(data = data.frame(umap), aes(x = umap_1, y = umap_2), bins = 15, linewidth = 2.5, alpha = 2, colour = "gray20") + theme_void() + theme(plot.title = element_blank(), legend.position = "none") + 
     xlim(range.expand(mAMs@reductions$umap@cell.embeddings[, "umap_1"], expand.ratio = 0.05)) + ylim(range.expand(mAMs@reductions$umap@cell.embeddings[, "umap_2"], expand.ratio = 0.05)) + coord_cartesian(expand = FALSE)
   Figure.2.FeaturePlot <- Figure.2.FeaturePlot & theme(panel.background = element_rect(fill = "transparent",colour = NA), plot.background = element_rect(fill = "transparent",colour = NA)) # transparent
   Figure.2.FeaturePlot <- ggplot_build(Figure.2.FeaturePlot)
@@ -405,7 +405,7 @@ for (i in 1:length(Figure.2A.FeaturePlot.Features)) {
   Figure.2.FeaturePlot$data[[1]]$size[which(Figure.2.FeaturePlot$data[[1]]$x %in% umap[, "umap_1"])] <- 2
   # remove smaller contour
   Contour <- if(Figure.2A.FeaturePlot.Subtypes[i] == "Gdf15.AMs") c(3, 7, 8) else c(which.max(table(Figure.2.FeaturePlot$data[[2]]$piece)))
-  Figure.2.FeaturePlot$data[[2]] <- Figure.2.FeaturePlot$data[[2]][Figure.2.FeaturePlot$data[[2]]$piece == Contour, ] # to make Neu tight
+  Figure.2.FeaturePlot$data[[2]] <- Figure.2.FeaturePlot$data[[2]][Figure.2.FeaturePlot$data[[2]]$piece == Contour, ] 
   Figure.2.FeaturePlot.directory <- paste0("Figure.2A.mAMs.", Figure.2A.FeaturePlot.Features[i], ".FeaturePlot.png")
   png(Figure.2.FeaturePlot.directory, width = 1100/2, height = 1000/2, bg = "transparent")
   print(grid::grid.draw(ggplot_gtable(Figure.2.FeaturePlot)))
@@ -720,7 +720,7 @@ Figure.E3.FeaturePlot.Subtypes <- c(rep("Ccl9.AMs", 7), "CK.AMs", rep(as.vector(
 for (i in 1:length(Figure.E3.FeaturePlot.Features)) {
   umap <- mAMs@reductions$umap@cell.embeddings[mAMs$AMs.Cell.Subtypes %in% Figure.E3.FeaturePlot.Subtypes[i], ]
   Figure.E3.FeaturePlot <- FeaturePlot(mAMs, features = Figure.E3.FeaturePlot.Features[i], raster = FALSE, order = TRUE, pt.size = 0.5) + scale_colour_gradient(low = "#E5E5E5", high = "#990F0F") + 
-    geom_density_2d(data = data.frame(umap), aes(x = umap_1, y = umap_2), bins = 15, linewidth = 2.5, alpha = 2, colour = "gray20") + theme_void() + theme(plot.title = element_blank(), legend.position = "none") + # bins = ifelse(i == 2, ifelse(i == 5, 25, 8), 15) to make Mono tight, DCs bigger
+    geom_density_2d(data = data.frame(umap), aes(x = umap_1, y = umap_2), bins = 15, linewidth = 2.5, alpha = 2, colour = "gray20") + theme_void() + theme(plot.title = element_blank(), legend.position = "none") + 
     xlim(range.expand(mAMs@reductions$umap@cell.embeddings[, "umap_1"], expand.ratio = 0.05)) + ylim(range.expand(mAMs@reductions$umap@cell.embeddings[, "umap_2"], expand.ratio = 0.05)) + coord_cartesian(expand = FALSE)
   Figure.E3.FeaturePlot <- Figure.E3.FeaturePlot & theme(panel.background = element_rect(fill = "transparent",colour = NA), plot.background = element_rect(fill = "transparent",colour = NA)) # transparent
   Figure.E3.FeaturePlot <- ggplot_build(Figure.E3.FeaturePlot)
@@ -729,7 +729,7 @@ for (i in 1:length(Figure.E3.FeaturePlot.Features)) {
   Figure.E3.FeaturePlot$data[[1]]$size[which(Figure.E3.FeaturePlot$data[[1]]$x %in% umap[, "umap_1"])] <- 2
   # remove smaller contour
   Contour <- if(Figure.E3.FeaturePlot.Subtypes[i] == "Gdf15.AMs") c(3, 7, 8) else c(which.max(table(Figure.E3.FeaturePlot$data[[2]]$piece)))
-  Figure.E3.FeaturePlot$data[[2]] <- Figure.E3.FeaturePlot$data[[2]][Figure.E3.FeaturePlot$data[[2]]$piece == Contour, ] # to make Neu tight
+  Figure.E3.FeaturePlot$data[[2]] <- Figure.E3.FeaturePlot$data[[2]][Figure.E3.FeaturePlot$data[[2]]$piece == Contour, ] 
   Figure.E3.FeaturePlot.directory <- paste0("Figure.E3.mAMs.", Figure.E3.FeaturePlot.Features[i], ".FeaturePlot.png")
   png(Figure.E3.FeaturePlot.directory, width = 1100/2, height = 1000/2, bg = "transparent")
   print(grid::grid.draw(ggplot_gtable(Figure.E3.FeaturePlot)))
@@ -744,7 +744,7 @@ Figure.E3.FeaturePlot.Subtypes <- list(c("CK1.AMs", "CK2.AMs", "CXCL5.AMs", "CCL
 for (i in 1:length(Figure.E3.FeaturePlot.Features)) {
   umap <- hAMs@reductions$umap@cell.embeddings[hAMs$AMs.Cell.Subtypes %in% Figure.E3.FeaturePlot.Subtypes[[i]], ]
   Figure.E3.FeaturePlot <- FeaturePlot(hAMs, features = Figure.E3.FeaturePlot.Features[i], raster = FALSE, order = TRUE, pt.size = 0.5) + scale_colour_gradient(low = "#E5E5E5", high = "#990F0F") + 
-    geom_density_2d(data = data.frame(umap), aes(x = umap_1, y = umap_2), bins = 15, linewidth = 2.5, alpha = 2, colour = "gray20") + theme_void() + theme(plot.title = element_blank(), legend.position = "none") + # bins = ifelse(i == 2, ifelse(i == 5, 25, 8), 15) to make Mono tight, DCs bigger
+    geom_density_2d(data = data.frame(umap), aes(x = umap_1, y = umap_2), bins = 15, linewidth = 2.5, alpha = 2, colour = "gray20") + theme_void() + theme(plot.title = element_blank(), legend.position = "none") + 
     xlim(range.expand(hAMs@reductions$umap@cell.embeddings[, "umap_1"], expand.ratio = 0.05)) + ylim(range.expand(hAMs@reductions$umap@cell.embeddings[, "umap_2"], expand.ratio = 0.05)) + coord_cartesian(expand = FALSE)
   Figure.E3.FeaturePlot <- Figure.E3.FeaturePlot & theme(panel.background = element_rect(fill = "transparent",colour = NA), plot.background = element_rect(fill = "transparent",colour = NA)) # transparent
   Figure.E3.FeaturePlot <- ggplot_build(Figure.E3.FeaturePlot)
@@ -762,7 +762,7 @@ for (i in 1:length(Figure.E3.FeaturePlot.Features)) {
 # for "AY036118", "Gm42418", "CA4", which do not have expression
 umap <- hAMs@reductions$umap@cell.embeddings[hAMs$AMs.Cell.Subtypes %in% Figure.E3.FeaturePlot.Subtypes[[i]], ]
 Figure.E3.DimPlot <- DimPlot(hAMs, group.by = "orig.tissue", cols = "lightgrey", raster = FALSE, order = TRUE, pt.size = 0.5) + 
-  geom_density_2d(data = data.frame(umap), aes(x = umap_1, y = umap_2), bins = 15, linewidth = 2.5, alpha = 2, colour = "gray20") + theme_void() + theme(plot.title = element_blank(), legend.position = "none") + # bins = ifelse(i == 2, ifelse(i == 5, 25, 8), 15) to make Mono tight, DCs bigger
+  geom_density_2d(data = data.frame(umap), aes(x = umap_1, y = umap_2), bins = 15, linewidth = 2.5, alpha = 2, colour = "gray20") + theme_void() + theme(plot.title = element_blank(), legend.position = "none") + 
   xlim(range.expand(hAMs@reductions$umap@cell.embeddings[, "umap_1"], expand.ratio = 0.05)) + ylim(range.expand(hAMs@reductions$umap@cell.embeddings[, "umap_2"], expand.ratio = 0.05)) + coord_cartesian(expand = FALSE)
 Figure.E3.DimPlot <- Figure.E3.DimPlot & theme(panel.background = element_rect(fill = "transparent",colour = NA), plot.background = element_rect(fill = "transparent",colour = NA)) # transparent
 Figure.E3.DimPlot <- ggplot_build(Figure.E3.DimPlot)
