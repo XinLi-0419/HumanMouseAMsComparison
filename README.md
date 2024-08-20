@@ -1,5 +1,6 @@
 # HumanMouseAMsComparison
 Code for letter "The Heterogeneity, Parallel and Divergence of Alveolar Macrophages in Humans and Mice"
+The description of rationale and approach included here is duplicated from our publication, in American Journal of Respiratory Cell and Molecular Biology, 2024.
 
 ![Figure](https://github.com/user-attachments/assets/ff5ac184-17ba-41e1-b1c5-bb1a2ccafca2)
 
